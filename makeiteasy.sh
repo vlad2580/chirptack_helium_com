@@ -6,7 +6,7 @@ SCRIPTHOME=`pwd`
 # ######################################
 # SUB ROUTINE
 # ######################################
-PUBKEY=""
+PUBKEY="13s8VnE6mxoSpzFXLaX9Eodr3g2it8QBa2RbbGjtu7VJFguM2aB"
 getPubKey() {
    if [ "$PUBKEY" == "" ] ; then
       cd /helium/cli
@@ -102,10 +102,10 @@ askSmtpConfig() {
 }
 
 
-DOMAIN=""
-PROTO=""
+DOMAIN="yurikov.me"
+PROTO="HTTPS"
 FULLDOMAIN=""
-CONTACTEMAIL=""
+CONTACTEMAIL="contact@foo.bar"
 askDomainName() {
   if [ "$DOMAIN" == "" ] ; then
     read -p "What is domain name (console.foor.bar) ? " domain
@@ -133,8 +133,8 @@ cecho() {
   echo -e "${COLORON}### $1${COLOROFF}"
 }
 
-OUI="0"
-NETID="00000"
+OUI="657"
+NETID="00003C"
 DBPASSWORD=""
 CHIRPSECRET=""
 
@@ -299,12 +299,12 @@ if [ ! -f /helium/cli/helium_cli ] ; then
  cargo b --release
  cp target/release/helium-config-service-cli /helium/cli/helium_cli
  cargo clean
+ sudo cp /home/yurikov2580/delegate_keypair.bin /helium/cli/
  cd /helium/cli
- ./helium_cli env generate-keypair keypair.bin
  askForOui
  askForNetid
  echo "export HELIUM_CONFIG_HOST=http://mainnet-config.helium.io:6080/" > /helium/cli/env.sh
- echo "export HELIUM_KEYPAIR_BIN=./keypair.bin" >> /helium/cli/env.sh
+ echo "export HELIUM_KEYPAIR_BIN=./delegate_keypair.bin" >> /helium/cli/env.sh
  echo "export HELIUM_NET_ID=${NETID}">> /helium/cli/env.sh
  echo "export HELIUM_OUI=${OUI}" >> /helium/cli/env.sh
  echo "export HELIUM_MAX_COPIES=99" >> /helium/cli/env.sh
